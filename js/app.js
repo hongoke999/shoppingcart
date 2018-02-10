@@ -84,6 +84,33 @@ function addIntoCart(course) {
 
     // Add into the shopping cart
     shoppingCartContent.appendChild(row);
+
+    // Add course into the storage
+    saveIntoStorage(course);
+}
+
+// Add the courses into the local storage
+function saveIntoStorage(course) {
+    let courses = getCoursesFromTheStorage();
+
+    // add the course into the array
+    courses.push(course);
+
+    // since storage only saves strings, we need to convert JSON into string
+    localStorage.setItem('courses', JSON.stringify(courses));
+}
+
+// Get the contents from the storage
+function getCoursesFromTheStorage() {
+
+    let courses;
+
+    if(localStorage.getItem('courses') === null) {
+        courses = [];
+    } else {
+        courses = JSON.parse(localStorage.getItem('courses'));
+    }
+    return courses;
 }
 
 // Remove course from the DOM
